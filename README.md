@@ -1,6 +1,8 @@
 # texpack
 
 texpack is a bundle of an editor and a packer applications that ease the work with spritesheets (specially designed for Cocos2D applications). It's capable of binpacking sprites and outputting a .plist indexing file.
+The indexing file format complies with Sprite Packer's .plist format, which is already implemented in Cocos2D, so everything is ready for usage.
+The project is released under the MIT license - feel free to use it in any way you wish :)
 
 # Using the GUI editor
 
