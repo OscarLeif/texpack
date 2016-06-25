@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+  <Type Name="json::value">
+    <DisplayString Condition="type_ == 0">{{ null }}</DisplayString>
+    <DisplayString Condition="type_ == 1">{{ int {value_.int_} }}</DisplayString>
+    <DisplayString Condition="type_ == 2">{{ uint {value_.uint_} }}</DisplayString>
+    <DisplayString Condition="type_ == 3">{{ real {value_.real_} }}</DisplayString>
+    <DisplayString Condition="type_ == 4 &amp;&amp; allocated_ == 0">{{ string {value_.string_,s8} }}</DisplayString>
+    <DisplayString Condition="type_ == 4 &amp;&amp; allocated_ == 1">{{ string {value_.string_+4,s8} }}</DisplayString>
+    <DisplayString Condition="type_ == 5">{{ bool {value_.bool_} }}</DisplayString>
+    <DisplayString Condition="type_ == 6">{{ array size={value_.map_-&gt;_Mypair._Myval2._Myval2._Mysize} }}</DisplayString>
+    <DisplayString Condition="type_ == 7">{{ object size={value_.map_-&gt;_Mypair._Myval2._Myval2._Mysize} }}</DisplayString>
+    <DisplayString>{{ JSON type={type_} }}</DisplayString>
+    <Expand>
+      <Item Name="[null]" Condition="type_ == 0">0</Item>
+      <Item Name="[int]" Condition="type_ == 1">value_.int_</Item>
+      <Item Name="[uint]" Condition="type_ == 2">value_.uint_</Item>
+      <Item Name="[real]" Condition="type_ == 3">value_.real_</Item>
+      <Item Name="[string]" Condition="type_ == 4 &amp;&amp; allocated_ == 0">value_.string_,s8</Item>
+      <Item Name="[string]" Condition="type_ == 4 &amp;&amp; allocated_ == 1">value_.string_+4,s8</Item>
+      <Item Name="[bool]" Condition="type_ == 5">value_.bool_</Item>
+      
+      <Item Name="[size]" Condition="type_ == 6" ExcludeView="simple">value_.map_-&gt;_Mypair._Myval2._Myval2._Mysize</Item>
+      <TreeItems Condition="type_ == 6">
+        <Size>value_.map_-&gt;_Mypair._Myval2._Myval2._Mysize</Size>
+        <HeadPointer>value_.map_-&gt;_Mypair._Myval2._Myval2._Myhead-&gt;_Parent</HeadPointer>
+        <LeftPointer>_Left</LeftPointer>
+        <RightPointer>_Right</RightPointer>
+        <ValueNode Condition="_Isnil == 0">_Myval</ValueNode>
+      </TreeItems>
+      
+      <Item Name="[size]" Condition="type_ == 7" ExcludeView="simple">value_.map_-&gt;_Mypair._Myval2._Myval2._Mysize</Item>
+      <TreeItems Condition="type_ == 7">
+        <Size>value_.map_-&gt;_Mypair._Myval2._Myval2._Mysize</Size>
+        <HeadPointer>value_.map_-&gt;_Mypair._Myval2._Myval2._Myhead-&gt;_Parent</HeadPointer>
+        <LeftPointer>_Left</LeftPointer>
+        <RightPointer>_Right</RightPointer>
+        <ValueNode Condition="_Isnil == 0">_Myval</ValueNode>
+      </TreeItems>
+    </Expand>
+  </Type>
+  
+  <Type Name="std::pair&lt;json::value::czstring const ,json::value&gt;">
+    <DisplayString Condition="first.cstr_ != nullptr">{{ key={first.cstr_,s8}, value={second} }}</DisplayString>
+    <DisplayString>{second}</DisplayString>
+    <Expand>
+      <Item Name="[key]"   Condition="first.cstr_ != nullptr">first.cstr_</Item>
+      <Item Name="[value]" Condition="first.cstr_ != nullptr">second</Item>
+      <ExpandedItem Condition="first.cstr_ == nullptr">second</ExpandedItem>
+    </Expand>
+  </Type>
+</AutoVisualizer>
